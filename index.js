@@ -1,5 +1,4 @@
 'use strict';
-
 /*
 
 WEEK 11 CODING ASSIGNMENT
@@ -13,20 +12,6 @@ Using any of the tools you’ve worked with so far, create a game of Tic-Tac-Toe
 
 */
 
-//NOTE - Two buttons for testing purposes only
-
-function testButton1() {
-	console.log('Test1 button was clicked.');
-	// TEST FUNCTION BELOW THIS LINE
-	endGame();
-}
-
-function testButton2() {
-	console.log('Test2 button was clicked.');
-	// TEST FUNCTION BELOW THIS LINE
-	console.log(winningSubgame);
-}
-
 // Starter variables
 const body = document.querySelector('#bkg-body-center');
 let activePlayer;
@@ -37,25 +22,6 @@ let winningSubgame = '';
 
 // Start game
 newGame();
-
-function endGame() {
-	// Remove 'onclick' attribute from all cells
-	const activeContainer = document.querySelector('.active');
-	const cells = activeContainer.querySelectorAll(`.cell`);
-	for (const element of cells) {
-		element.removeAttribute('onclick');
-	}
-
-	// Scribble over top of finished game
-	const scribble = activeContainer.querySelector(`.scribble`);
-	scribble.classList.remove('hidden');
-
-	// Remove 'active' class from finished game
-	activeContainer.classList.remove('active');
-
-	// Start a new game
-	newGame();
-}
 
 function newGame() {
 	// Reset subGame scores
@@ -162,6 +128,7 @@ function cellClick(cell) {
 			if (element[activePlayerNumber] === 3) {
 				// Set game finished
 				gameFinished = true;
+				activeContainer.querySelector('.btn').classList.remove('blank');
 
 				// Draw the winning subgame circle
 				winningSubgame = element[0];
@@ -183,6 +150,7 @@ function cellClick(cell) {
 		}
 		if (catsTally === 8) {
 			gameFinished = true;
+			activeContainer.querySelector('.btn').classList.remove('blank');
 
 			// Print "cat's game" in message
 			activeContainer.querySelector('.message').textContent = `cat's game`;
@@ -194,4 +162,26 @@ function cellClick(cell) {
 		activePlayer = activePlayer === 'X' ? 'O' : 'X';
 		activeContainer.querySelector('.message').textContent = `it's ${activePlayer}'s turn`;
 	}
+}
+
+function endGame() {
+	// Remove 'onclick' attribute from all cells
+	const activeContainer = document.querySelector('.active');
+	const cells = activeContainer.querySelectorAll(`.cell`);
+	for (const element of cells) {
+		element.removeAttribute('onclick');
+	}
+
+	// Make 'new game' button blank
+	activeContainer.querySelector('.btn').classList.add('blank');
+
+	// Scribble over top of finished game
+	const scribble = activeContainer.querySelector(`.scribble`);
+	scribble.classList.remove('hidden');
+
+	// Remove 'active' class from finished game
+	activeContainer.classList.remove('active');
+
+	// Start a new game
+	newGame();
 }
