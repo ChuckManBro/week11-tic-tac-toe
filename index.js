@@ -59,8 +59,6 @@ function newGame() {
 }
 
 function cellClick(cell) {
-	console.log(`${cell} clicked!`); //NOTE - Testing purposes only
-
 	// Find current button
 	const activeContainer = document.querySelector(`.active`);
 	const currentButton = activeContainer.querySelector(`.cell-${cell}`);
